@@ -22,12 +22,12 @@ class Weather {
 
     private $wIcon = array(
 
-        "多云" => "cloudy",
+        "多云" => "hazy",
         "多云转晴" => "partlysunny",
         "多云转阴" => "hazy",
         "多云转小雨" => "chancesleet",
         "多云转阵雨" => "chancerain",
-        "多云转雷阵雨" => "chancerain",
+        "多云转雷阵雨" => "chancetstorms",
         "多云转小雪" => "chancesleet",
         "多云转中雪" => "chanceflurries",
         "多云转中到大雪" => "chancesnow",
@@ -87,7 +87,7 @@ class Weather {
         "晴转霾" => "partlycloudy",
         "晴转浮尘" => "partlycloudy",
 
-        "阴" => "hazy",
+        "阴" => "cloudy",
         "阴转晴" => "partlysunny",
         "阴转多云" => "cloudy",
         "阴转小雨" => "chancerain",
