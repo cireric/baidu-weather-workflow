@@ -33,6 +33,7 @@ class Weather {
     private $workflows = null;
 
     private function __construct() {
+        $this->workflows = new Workflows();
         return $this;
     }
 
@@ -45,13 +46,14 @@ class Weather {
         return self::$instance;
     }
 
+    public function getResource($query) {
+		$api = $this->url. $query;
+		return json_decode($this->workflows->request($api));
+    }
+
 	public function getWeather($query){
         $query = $this->getCityName($query);
-		$this->workflows = new Workflows();
-		$api = $this->url. $query;
-		$res = $this->workflows->request($api);
-		$res = json_decode( $res );
-
+		$res = $this->getResource($query);
         if ($res->error === 0 && 
             isset($res->results) && count($res->results) > 0 &&
             isset($res->results[0]->weather_data) && count($res->results[0]->weather_data) > 0) {
