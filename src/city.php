@@ -331,6 +331,7 @@ class City {
         "XIANGCHENG" => "项城",
         "XIANGFAN" => "襄樊",
         "XIANGGANG" => "香港",
+        "HONGKONG" => "香港",
         "XIANGGELILA" => "香格里拉",
         "XIANGSHAN" => "象山",
         "XIANGTAN" => "湘潭",
