@@ -117,6 +117,7 @@ class City {
         "HETIAN" => "和田",
         "HEYUAN" => "河源",
         "HEZE" => "菏泽",
+        "HEZHOU" => "贺州",
         "HUADOU" => "花都",
         "HUAIAN" => "淮安",
         "HUAIBEI" => "淮北",
