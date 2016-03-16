@@ -118,6 +118,7 @@ class Wicon {
         "阵雨转中到大雨" => "chancerain",
         "阵雨转大雨" => "chancerain",
         "阵雨转雷阵雨" => "chancetstorms",
+        "阵雨转小雪" => "chancesleet",
         "阵雨转雨夹雪" => "chancesleet",
         "雨加冰雹" => "chancesleet",
         "雨夹雪" => "sleet",
