@@ -1,7 +1,6 @@
 <?php
 class Wicon {
     private static $wIcon = array(
-
         "晴" => "sunny",
         "晴转阴" => "partlycloudy",
         "晴转多云" => "mostlycloudy",

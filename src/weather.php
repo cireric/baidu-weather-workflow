@@ -51,31 +51,37 @@ class Weather {
 		return json_decode($this->workflows->request($api));
     }
 
+    /**
+     * 获取天气数据，格式化处理
+     */
 	public function getWeather($query){
         $query = $this->getCityName($query);
 		$res = $this->getResource($query);
         if ($res->error === 0 && 
             isset($res->results) && count($res->results) > 0 &&
-            isset($res->results[0]->weather_data) && count($res->results[0]->weather_data) > 0) {
+            isset($res->results[0]->weather_data) && 
+            count($res->results[0]->weather_data) > 0) {
 
             //var_dump($res->results[0]);
 
-            $curCityName = $res->currentCity;
 			$forecast = $res->results[0]->weather_data;
 			foreach($forecast as $key => $value) {
+                $index = intval($key);
                 $weather = trim($value->weather);
                 $date = $this->getDate($res->date, $key);
                 $title = $this->getTitle($value->date, $weather, $date);
                 //echo $title . "\r\n";
 
+                $sub = $query . ' ・ ' . $value->wind . " ・ 温度：" . $value->temperature;
+                // PM2.5
+                if ($index === 0) {
+                    $sub .= ' · PM2.5: ' . $res->results[0]->pm25;
+                }
+
                 $icon = $this->getIcon($weather);
                 //echo $icon . "\r\n";
 
-				$this->workflows->result($key,
-									     $query,
-									     $title,
-									     $query. ' ・ '.$value->wind." ・ 温度：".$value->temperature,
-									     $icon);
+				$this->workflows->result($key, $query, $title, $sub, $icon);
 			}
         } else {
 			$this->workflows->result(	'',
@@ -89,12 +95,12 @@ class Weather {
 
     private function getTitle($weekStr, $weatherStr, $date) {
         $title = "";
-        $weekArray = split(' ', $weekStr);
+        $weekArray = explode(' ', $weekStr);
         if (count($weekArray) > 0) {
-            $sep = "      ";
+            $sep = "    ";
             $week = array_shift($weekArray);
             $other = array_pop($weekArray);
-            $title = trim($week . '/' . $date . $sep . $weatherStr . $sep . $sep . $other);
+            $title = trim($week . '[' . $date . ']' . $sep . $weatherStr . $sep . $other);
         } else {
             $title = "╮(￣▽￣)╭";
         }
@@ -107,9 +113,9 @@ class Weather {
 
     private function getDate($curDate, $index) {
         if ($index > 0) {
-            return date("m-d", strtotime($curDate) + intval($index) * 86400);
+            return date("Y-m-d", strtotime($curDate) + intval($index) * 86400);
         } else {
-            return date("m-d", strtotime($curDate));
+            return date("Y-m-d", strtotime($curDate));
         }
     }
 
